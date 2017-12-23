@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223165654) do
+ActiveRecord::Schema.define(version: 20171223173255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "default_prices", force: :cascade do |t|
+    t.bigint "product_infos_id", null: false
+    t.decimal "buy_price_used_en", precision: 8, scale: 2
+    t.decimal "buy_price_used_pl", precision: 8, scale: 2
+    t.decimal "sell_price_used_en", precision: 8, scale: 2
+    t.decimal "sell_price_used_pl", precision: 8, scale: 2
+    t.decimal "buy_price_new_en", precision: 8, scale: 2
+    t.decimal "buy_price_new_pl", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_infos_id"], name: "index_default_prices_on_product_infos_id"
+  end
 
   create_table "product_infos", force: :cascade do |t|
     t.string "name_en"
@@ -42,4 +55,5 @@ ActiveRecord::Schema.define(version: 20171223165654) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "default_prices", "product_infos", column: "product_infos_id"
 end
