@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'pg'
+gem 'rolify'
 gem 'turbolinks', '~> 5'
 
 group :development, :test do
