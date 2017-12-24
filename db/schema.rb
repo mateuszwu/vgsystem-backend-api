@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171224131408) do
+ActiveRecord::Schema.define(version: 20171224132440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "barcodes", force: :cascade do |t|
     t.string "code"
-    t.bigint "product_infos_id"
+    t.bigint "product_infos_id", null: false
     t.boolean "is_english"
     t.boolean "is_polish"
     t.datetime "created_at", null: false
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(version: 20171224131408) do
     t.index ["user_id", "shop_id"], name: "index_shops_users_on_user_id_and_shop_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "shop_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_transactions_on_shop_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -98,5 +107,8 @@ ActiveRecord::Schema.define(version: 20171224131408) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "barcodes", "product_infos", column: "product_infos_id"
   add_foreign_key "default_prices", "product_infos", column: "product_infos_id"
+  add_foreign_key "transactions", "shops"
+  add_foreign_key "transactions", "users"
 end
