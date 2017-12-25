@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225140128) do
+ActiveRecord::Schema.define(version: 20171225141834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 20171225140128) do
 
   create_table "default_prices", force: :cascade do |t|
     t.bigint "product_infos_id", null: false
-    t.decimal "buy_price_used_en", precision: 8, scale: 2
-    t.decimal "buy_price_used_pl", precision: 8, scale: 2
-    t.decimal "sell_price_used_en", precision: 8, scale: 2
-    t.decimal "sell_price_used_pl", precision: 8, scale: 2
-    t.decimal "buy_price_new_en", precision: 8, scale: 2
-    t.decimal "buy_price_new_pl", precision: 8, scale: 2
+    t.decimal "buy_price_used_en", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "buy_price_used_pl", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "sell_price_used_en", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "sell_price_used_pl", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "buy_price_new_en", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "buy_price_new_pl", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_infos_id"], name: "index_default_prices_on_product_infos_id"
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(version: 20171225140128) do
   end
 
   create_table "product_infos", force: :cascade do |t|
-    t.string "name_en"
-    t.string "name_pl"
-    t.string "category"
+    t.string "name_en", default: "", null: false
+    t.string "name_pl", default: "", null: false
+    t.string "category", default: "", null: false
     t.string "description"
     t.string "image"
     t.datetime "created_at", null: false
@@ -91,10 +91,10 @@ ActiveRecord::Schema.define(version: 20171225140128) do
   end
 
   create_table "shops", force: :cascade do |t|
-    t.string "city"
-    t.string "address"
-    t.string "phone"
-    t.decimal "money", precision: 8, scale: 2
+    t.string "city", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "phone", default: "", null: false
+    t.decimal "money", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -127,6 +127,12 @@ ActiveRecord::Schema.define(version: 20171225140128) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name", default: "t", null: false
+    t.string "last_name", default: "t", null: false
+    t.string "city", default: "t", null: false
+    t.string "address", default: "t", null: false
+    t.string "phone", default: "t", null: false
+    t.boolean "is_enabled", default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
