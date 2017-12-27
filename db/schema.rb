@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225141834) do
+ActiveRecord::Schema.define(version: 20171227114535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20171225141834) do
     t.boolean "is_polish"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_barcodes_on_code"
     t.index ["product_info_id"], name: "index_barcodes_on_product_info_id"
   end
 
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20171225141834) do
   create_table "product_transaction_details", force: :cascade do |t|
     t.bigint "transaction_id"
     t.bigint "product_id"
-    t.string "type", default: "t", null: false
+    t.string "type", default: "", null: false
     t.integer "quantity", default: 0, null: false
     t.decimal "sell_price", precision: 8, scale: 2, default: "0.0", null: false
     t.string "description"
@@ -125,11 +126,11 @@ ActiveRecord::Schema.define(version: 20171225141834) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name", default: "t", null: false
-    t.string "last_name", default: "t", null: false
-    t.string "city", default: "t", null: false
-    t.string "address", default: "t", null: false
-    t.string "phone", default: "t", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "city", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "phone", default: "", null: false
     t.boolean "is_enabled", default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

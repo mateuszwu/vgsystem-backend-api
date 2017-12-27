@@ -4,6 +4,8 @@ class ProductInfo < ApplicationRecord
   has_one :default_price
   has_many :barcodes
 
+  validates :name_en, :name_pl, :category, presence: true
+
   private
 
   def create_default_prices
