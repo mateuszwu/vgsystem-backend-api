@@ -1,4 +1,12 @@
 class ProductInfo < ApplicationRecord
-  belongs_to :default_price
+  after_create :create_default_prices
+
+  has_one :default_price
   has_many :barcodes
+
+  private
+
+  def create_default_prices
+    DefaultPrice.create(product_info: self)
+  end
 end

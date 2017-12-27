@@ -20,7 +20,10 @@ gem 'turbolinks', '~> 5'
 group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'pry'
+  gem 'pry-doc'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 3.6'
   gem 'rubocop', require: false
   gem 'selenium-webdriver'

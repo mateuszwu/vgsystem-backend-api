@@ -17,16 +17,16 @@ ActiveRecord::Schema.define(version: 20171225141834) do
 
   create_table "barcodes", force: :cascade do |t|
     t.string "code"
-    t.bigint "product_infos_id", null: false
+    t.bigint "product_info_id", null: false
     t.boolean "is_english"
     t.boolean "is_polish"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_infos_id"], name: "index_barcodes_on_product_infos_id"
+    t.index ["product_info_id"], name: "index_barcodes_on_product_info_id"
   end
 
   create_table "default_prices", force: :cascade do |t|
-    t.bigint "product_infos_id", null: false
+    t.bigint "product_info_id", null: false
     t.decimal "buy_price_used_en", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "buy_price_used_pl", precision: 8, scale: 2, default: "0.0", null: false
     t.decimal "sell_price_used_en", precision: 8, scale: 2, default: "0.0", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20171225141834) do
     t.decimal "buy_price_new_pl", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_infos_id"], name: "index_default_prices_on_product_infos_id"
+    t.index ["product_info_id"], name: "index_default_prices_on_product_info_id"
   end
 
   create_table "money_transaction_details", force: :cascade do |t|
@@ -70,13 +70,11 @@ ActiveRecord::Schema.define(version: 20171225141834) do
   create_table "products", force: :cascade do |t|
     t.bigint "barcode_id"
     t.bigint "shop_id"
-    t.bigint "product_info_id"
     t.integer "quantity", default: 0, null: false
     t.decimal "buy_price", precision: 8, scale: 2, default: "0.0", null: false
     t.boolean "is_new", default: false, null: false
     t.string "description"
     t.index ["barcode_id"], name: "index_products_on_barcode_id"
-    t.index ["product_info_id"], name: "index_products_on_product_info_id"
     t.index ["shop_id"], name: "index_products_on_shop_id"
   end
 
@@ -145,13 +143,12 @@ ActiveRecord::Schema.define(version: 20171225141834) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "barcodes", "product_infos", column: "product_infos_id"
-  add_foreign_key "default_prices", "product_infos", column: "product_infos_id"
+  add_foreign_key "barcodes", "product_infos"
+  add_foreign_key "default_prices", "product_infos"
   add_foreign_key "money_transaction_details", "transactions"
   add_foreign_key "product_transaction_details", "products"
   add_foreign_key "product_transaction_details", "transactions"
   add_foreign_key "products", "barcodes"
-  add_foreign_key "products", "product_infos"
   add_foreign_key "products", "shops"
   add_foreign_key "transactions", "shops"
   add_foreign_key "transactions", "users"

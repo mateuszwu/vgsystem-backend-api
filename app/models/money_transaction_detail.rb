@@ -1,3 +1,3 @@
 class MoneyTransactionDetail < ApplicationRecord
-  belongs_to :transaction
+  has_one :core_transaction, class_name: 'Transaciton'
 end
