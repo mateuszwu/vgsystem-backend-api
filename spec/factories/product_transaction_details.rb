@@ -3,7 +3,7 @@ FactoryBot.define do
     transaction_id { create(:transaction).id }
     product { create(:product) }
     quantity 1
-    type 'sell'
+    category 'sell'
     sell_price 10
   end
 end
